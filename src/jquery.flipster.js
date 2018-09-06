@@ -128,10 +128,12 @@
             // [text|html]
             // Changes the text for the Next button
 
-            onItemSwitch: false
+            onItemSwitch: false,
             // [function]
             // Callback function when items are switched
             // Arguments received: [currentItem, previousItem]
+
+            showItemTitle: true
         },
 
         classes = {
@@ -233,13 +235,18 @@
 
                 if ( _nav ) { _nav.remove(); }
 
-                _nav = $('<ul class="' + classes.nav + '" role="navigation" />');
+                _nav = $('ul.' + classes.nav + '[role="navigation"]');
+                if (_nav.length == 0) {
+                    _nav = $('<ul class="' + classes.nav + '" role="navigation" />');
+                } else {
+                    _nav.empty();
+                }
                 _navLinks = $('');
 
                 _items.each(function(i) {
                     var item = $(this),
                         category = item.data('flip-category'),
-                        itemTitle = item.data('flip-title') || item.attr('title') || i,
+                        itemTitle = settings.showItemTitle ? (item.data('flip-title') || item.attr('title') || i) : "",
                         navLink = $('<a href="#" class="' + classes.navLink + '">' + itemTitle + '</a>')
                         .data('index', i);
 
@@ -483,7 +490,7 @@
 
             function index() {
 
-                _container = self.find(settings.itemContainer).addClass(classes.container);
+                _container = (self.find(settings.itemContainer)[settings.nav === 'after' ? "first" : "last"]()).addClass(classes.container);
 
                 _items = _container.find(settings.itemSelector);
 

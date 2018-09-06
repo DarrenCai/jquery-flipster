@@ -42,8 +42,10 @@
 .flipster__button {
   position: absolute;
   top: 50%;
+  transform: translateY(-50%);
   display: block;
-  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
   background: none;
   border: none;
   padding: 0;
@@ -52,7 +54,7 @@
   font-size: 15px;
   opacity: 0.5;
   transition: opacity 500ms ease;
-  margin: -1em 2em;
+  margin: 0 2px;
 }
 .flipster__button svg {
   width: 2em;
@@ -82,45 +84,37 @@
 }
 .flipster__nav {
   display: block;
-  margin: 0 0 4em;
   text-align: center;
-  position: relative;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 5px;
 }
 .flipster__nav__item {
   display: inline-block;
-  margin: 0 0.25em;
+  margin: 0 2px;
 }
 .flipster__nav__link {
+  pointer-events: none;
   display: block;
   color: inherit;
-  padding: 0.5em 1em;
   position: relative;
   overflow: hidden;
   transition: all 250ms ease-out;
   transition-timing-function: cubic-bezier(0.56, 0.12, 0.12, 0.98);
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: #777;
 }
-.flipster__nav__link::after {
-  content: '';
-  display: block;
-  background: #232221;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  transform: translateY(100%) translateY(-0.25em);
-  transition: inherit;
-}
-.flipster__nav__item--current > .flipster__nav__link,
-.flipster__nav__link:hover,
-.flipster__nav__link:focus {
-  color: #FFF;
-}
-.flipster__nav__item--current > .flipster__nav__link::after,
-.flipster__nav__link:hover::after,
-.flipster__nav__link:focus::after {
-  transform: translateY(0);
+.flipster__nav__item--current > .flipster__nav__link {
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+  transform: translateY(2px);
+  background-color: #000;
 }
 .flipster__nav__child {
   display: none;
@@ -250,10 +244,12 @@
 }
 /* @end */
 
-/* @group Flat */
-.flipster--flat .flipster__container,
-.flipster--flat .flipster__item,
-.flipster--flat .flipster__item__content {
+/* @group Flipster Flat Theme */
+.flipster--flat .flipster__container, .flipster--inlineGrid .flipster__container,
+.flipster--flat .flipster__item, .flipster--inlineGrid .flipster__item,
+.flipster--flat .flipster__item__content, .flipster--inlineGrid .flipster__item__content {
+  width: 100%;
+  height: 100%;
   transition: all 400ms ease-in-out;
 }
 .flipster--flat .flipster__item--past,
